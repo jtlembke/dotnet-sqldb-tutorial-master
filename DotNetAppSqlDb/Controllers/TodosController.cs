@@ -6,13 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using DotNetAppSqlDb.Models;using System.Diagnostics;
+using DotNetAppSqlDb.Models;
+using System.Diagnostics;
 
 namespace DotNetAppSqlDb.Controllers
 {
     public class TodosController : Controller
     {
-        private MyDatabaseContext db = new MyDatabaseContext();
+        private MyDbContext db = new MyDbContext();
 
         // GET: Todos
         public ActionResult Index()
@@ -22,7 +23,7 @@ namespace DotNetAppSqlDb.Controllers
         }
 
         // GET: Todos/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Details(int? id)
         {
             Trace.WriteLine("GET /Todos/Details/" + id);
             if (id == null)
@@ -49,12 +50,12 @@ namespace DotNetAppSqlDb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Description,CreatedDate")] Todo todo)
+        public ActionResult Create([Bind(Include = "id,Description,CreatedDate,AnotherField,Added")] Todo todo)
         {
             Trace.WriteLine("POST /Todos/Create");
             if (ModelState.IsValid)
             {
-                todo.id = Guid.NewGuid();
+                //todo.Id = Guid.NewGuid();
                 db.Todoes.Add(todo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -64,14 +65,14 @@ namespace DotNetAppSqlDb.Controllers
         }
 
         // GET: Todos/Edit/5
-        public ActionResult Edit(Guid? id)
+        public ActionResult Edit(int? id)
         {
             Trace.WriteLine("GET /Todos/Edit/" + id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Todo todo = db.Todoes.Find(id);
+            Todo todo = db.Todoes.Find(id.Value);
             if (todo == null)
             {
                 return HttpNotFound();
@@ -84,9 +85,9 @@ namespace DotNetAppSqlDb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Description,CreatedDate")] Todo todo)
+        public ActionResult Edit([Bind(Include = "id,Description,CreatedDate,AnotherField,Added")] Todo todo)
         {
-            Trace.WriteLine("POST /Todos/Edit/" + todo.id);
+            Trace.WriteLine("POST /Todos/Edit/" + todo.Id);
             if (ModelState.IsValid)
             {
                 db.Entry(todo).State = EntityState.Modified;

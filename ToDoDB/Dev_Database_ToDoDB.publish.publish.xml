@@ -2,10 +2,11 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
-    <TargetDatabaseName>MYDATABASECONTEXT_201704031541_049966fc72164383bbd225287315ac11</TargetDatabaseName>
+    <TargetDatabaseName>MYDATABASECONTEXT_201704031541</TargetDatabaseName>
     <DeployScriptFileName>ToDoDB.sql</DeployScriptFileName>
     <TargetConnectionString>Data Source=(localdb)\MSSQLLocalDB;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</TargetConnectionString>
-    <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
+    <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
     <ProfileVersionNumber>1</ProfileVersionNumber>
+    <CreateNewDatabase>True</CreateNewDatabase>
   </PropertyGroup>
 </Project>
